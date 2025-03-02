@@ -34,15 +34,15 @@ path = "src/py_cpc/__about__.py"
 extra-dependencies = [
   "mypy>=1.0.0",
   "openapi-python-client",
+  "ruff",
 ]
 [tool.hatch.envs.default.scripts]
-check = "mypy --install-types --non-interactive {args:src/py_cpc}"
+check = "ruff check && ruff format --check && mypy --install-types --non-interactive {args:src/py_cpc}"
+fix = "ruff check --fix && ruff format"
 generate-client = "openapi-python-client generate --path ../cpc-openapi/cpc.yml --meta none --fail-on-warning --overwrite --output-path src/py_cpc/generated/client"
 
-[tool.coverage.run]
-source_pkgs = ["py_cpc"]
-branch = true
-parallel = true
-omit = [
-  "src/py_cpc/__about__.py",
-]
+[tool.ruff]
+indent-width = 2
+lint.extend-select = ["I"]
+lint.flake8-type-checking.strict = true
+lint.isort.combine-as-imports = true

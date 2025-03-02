@@ -1,5 +1,5 @@
 from .auth import AbstractAuth, DefaultAuth
-from .exception import ConnectionException, AuthorizationException
+from .exception import AuthorizationException, ConnectionException
 
 __all__ = [
   "AbstractAuth",
