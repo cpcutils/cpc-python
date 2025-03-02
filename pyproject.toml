@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "py-cpc"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.9"
+license = "Unlicense"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "httpx>=0.20.0,<0.29.0",
+  "attrs>=22.2.0",
+  "python-dateutil==2.8.*",
+  "dataclass_wizard==0.34",
+]
+
+[tool.hatch.version]
+path = "src/py_cpc/__about__.py"
+
+[tool.hatch.envs.default]
+extra-dependencies = [
+  "mypy>=1.0.0",
+  "openapi-python-client",
+]
+[tool.hatch.envs.default.scripts]
+check = "mypy --install-types --non-interactive {args:src/py_cpc}"
+generate-client = "openapi-python-client generate --path ../cpc-openapi/cpc.yml --meta none --fail-on-warning --overwrite --output-path src/py_cpc/generated/client"
+
+[tool.coverage.run]
+source_pkgs = ["py_cpc"]
+branch = true
+parallel = true
+omit = [
+  "src/py_cpc/__about__.py",
+]
