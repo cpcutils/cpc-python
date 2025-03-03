@@ -37,7 +37,7 @@ extra-dependencies = [
   "ruff",
 ]
 [tool.hatch.envs.default.scripts]
-check = "ruff check && ruff format --check && mypy --install-types --non-interactive {args:src/py_cpc}"
+check = "ruff check && ruff format --check && mypy --install-types --non-interactive src/py_cpc"
 fix = "ruff check --fix && ruff format"
 generate-client = "openapi-python-client generate --path ../cpc-openapi/cpc.yml --meta none --fail-on-warning --overwrite --output-path src/py_cpc/generated/client"
 
@@ -46,3 +46,7 @@ indent-width = 2
 lint.extend-select = ["I"]
 lint.flake8-type-checking.strict = true
 lint.isort.combine-as-imports = true
+
+[[tool.mypy.overrides]]
+module = ["dataclass_wizard.*"]
+ignore_missing_imports = true

@@ -1,4 +1,5 @@
 from .auth import AbstractAuth, DefaultAuth
+from .cpc import PyCpc
 from .exception import AuthorizationException, ConnectionException
 
 __all__ = [
@@ -6,4 +7,5 @@ __all__ = [
   "AuthorizationException",
   "ConnectionException",
   "DefaultAuth",
+  "PyCpc",
 ]

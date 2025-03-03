@@ -9,6 +9,7 @@ from .generated.client import AuthenticatedClient
 from .generated.client.api.default import get_notifications_cpcid
 from .generated.client.errors import UnexpectedStatus
 from .generated.client.models.my_mail_error import MyMailError
+from .model import MailNotifications
 
 
 class PyCpc:
@@ -26,7 +27,7 @@ class PyCpc:
   def set_client(self, client: Optional[AsyncClient]):
     self._client = client
 
-  async def async_fetch_incoming_mail(self):
+  async def async_fetch_incoming_mail(self) -> MailNotifications:
     if not self._client:
       self._client = AsyncClient()
 
@@ -54,3 +55,5 @@ class PyCpc:
     if isinstance(response, MyMailError):
       raise AuthorizationException(response.message)
     assert response is not None
+
+    return MailNotifications.from_openapi(response)
